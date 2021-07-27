@@ -9,7 +9,7 @@ trigger NoOrderOnHoliday on Order__c (before insert, before update) {
     for (Order__c order : Trigger.new) {
         Boolean checkDate = ( trigger.isInsert || trigger.oldMap.get(order.Id).CreatedDate != order.CreatedDate );
         if (checkDate && order.CreatedDate != NULL) {
-            if ( allHolidays.contains(order.CreatedDate) ) {
+            if ( allHolidays.contains(date.valueOf(order.CreatedDate) ) ) {
                 order.CreatedDate.addError('Orders can not be created on holidays.');
             }
         }

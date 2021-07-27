@@ -1,9 +1,13 @@
 trigger NoEmployeesB4Delete on Store__c (before delete) {
-	List<Employee__c> trigger3 = new List<Employee__c> ([SELECT Name, Store__c FROM Employee__c]);
-    for(Store__c store : Trigger.new) {
-        if (store.Store__c != 'null') {
-              store.addError('This Store still has employees and can not be deleted.');
-        }
+    
+	Set<Store__c> trigger3 = new Set<Store__c> ([SELECT Id FROM Store__c]);
+    
+    for(Store__c store : trigger.old) {
+        Set<Employee__c> pt2 = new Set<Employee__c> ([SELECT Store__c FROM Employee__c WHERE Store__c IN : Trigger.old]);
+        
+        if ( trigger.oldMap.get(trigger3.Id) == trigger.oldMap.get(pt2.Id) ) {
+                 store.addError('This Store still has employees and can not be deleted.');
+            }
     }
 }
 
