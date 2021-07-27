@@ -15,3 +15,5 @@ trigger NoOrderOnHoliday on Order__c (before insert, before update) {
         }
     }
 }
+
+// Trigger 2 - don't create orders if today is a holiday ~~~~~ before insert, before update

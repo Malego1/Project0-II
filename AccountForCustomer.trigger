@@ -11,4 +11,3 @@ trigger AccountForCustomer on Customer__c (after insert, after update) {
 }
 
 // Trigger 1 - creating a customer object adds an account for them   ~~~~ after insert
-// for(Customer__c a : Trigger.New) {
